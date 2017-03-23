@@ -1,6 +1,6 @@
-window.onload = function() {
+$(document).ready(function() {
 
-	//declare variables and objects
+    //declare variables and objects
     var timeLeft;
     var correct = 0;
     var incorrect = 0;
@@ -10,32 +10,13 @@ window.onload = function() {
     var displayImage;
     var image;
     var click = new Audio("assets/audio/click.wav");
-    var quiz = [{
-        question: "What is the hottest place on Earth?",
-        answers: ["Lut Desert, Iran", "Furnace Creek, California", "Gobi Desert, China", "El Azizia, Libya"],
-        solution: "Lut Desert, Iran",
-        image: "lut desert"
-    }, {
-        question: "What is the southernmost town on Earth?",
-        answers: ["Bluff, New Zealand", "Ushuaia, Argentina", "Puerto Williams, Chile", "Stanley, UK"],
-        solution: "Puerto Williams, Chile",
-        image: "puerto williams chile"
-    }, {
-        question: "What is the biggest city on Earth?",
-        answers: ["New York City, USA", "Tokyo, Japan", "Sao Paulo, Brazil", "Mexico City, Mexiko"],
-        solution: "Tokyo, Japan",
-        image: "tokyo japan"
-    }, {
-        question: "What is the happiest nation on Earth?",
-        answers: ["USA", "Switzerland", "Norway", "Denmark"],
-        solution: "Norway",
-        image: "norway fjord"
-    }, {
-        question: "Which is the most photographed place on Earth?",
-        answers: ["Guggenheim Museum, New York", "Madrid, Spain", "Rome, Italy", "Eiffeltower, France"],
-        solution: "Guggenheim Museum, New York",
-        image: "guggenheim museum new york"
-    }];
+    var quiz = [
+    	{question: "What is the hottest place on Earth?", answers: ["Lut Desert, Iran", "Furnace Creek, California", "Gobi Desert, China", "El Azizia, Libya"], solution: "Lut Desert, Iran", image: "lut desert"}, 
+        {question: "What is the southernmost town on Earth?", answers: ["Bluff, New Zealand", "Ushuaia, Argentina", "Puerto Williams, Chile", "Stanley, UK"], solution: "Puerto Williams, Chile", image: "puerto williams chile"}, 
+        {question: "What is the biggest city on Earth?", answers: ["New York City, USA", "Tokyo, Japan", "Sao Paulo, Brazil", "Mexico City, Mexiko"], solution: "Tokyo, Japan", image: "tokyo japan"}, 
+        {question: "What is the happiest nation on Earth?", answers: ["USA", "Switzerland", "Norway", "Denmark"], solution: "Norway", image: "norway fjord"}, 
+        {question: "Which is the most photographed place on Earth?", answers: ["Guggenheim Museum, New York", "Madrid, Spain", "Rome, Italy", "Eiffeltower, France"], solution: "Guggenheim Museum, New York", image: "guggenheim museum new york"}
+        ];
 
     //first screen when page loads with click event to start game
     function gameStart() {
@@ -49,6 +30,7 @@ window.onload = function() {
 
     //click function to start game by pulling first quesstion
     $(".start").on("click", function() {
+        event.preventDefault();
         click.play();
         questionDisplay();
         //remove start button
@@ -71,11 +53,12 @@ window.onload = function() {
         $.ajax({
             url: queryURL,
             method: "GET",
-            beforeSend: function(request){
-            	request.setRequestHeader("Api-Key", apiKey);
-        }}).done(function(response) {
+            beforeSend: function(request) {
+                request.setRequestHeader("Api-Key", apiKey);
+            }
+        }).done(function(response) {
             console.log(response);
-            displayImage = $("<img src='" +response.images[0].display_sizes[0].uri + "'/>");
+            displayImage = $("<img src='" + response.images[0].display_sizes[0].uri + "'/>");
 
         })
 
@@ -143,18 +126,18 @@ window.onload = function() {
     function wrongAnswer() {
         incorrect++;
         $(".timer").html("");
-      	var messageWrong = $("<div>");
+        var messageWrong = $("<div>");
         var display = $("<p>").text("Oops! Maybe next time! The correct answer is " + quiz[arrayNumber].solution + ".");
         messageWrong.append(display);
         messageWrong.append(displayImage);
-        $(".main-content").html(messageWrong);        
+        $(".main-content").html(messageWrong);
         setTimeout(stopOrContinue, 2000);
     }
     //screen when question remains unanswered after time is up
     function unansweredQuestion() {
         unanswered++;
         $(".timer").html("");
-      	var messageUnanswered = $("<div>");
+        var messageUnanswered = $("<div>");
         var display = $("<p>").text("Your time is up! The correct answer is " + quiz[arrayNumber].solution + ".");
         messageUnanswered.append(display);
         messageUnanswered.append(displayImage);
@@ -225,5 +208,4 @@ window.onload = function() {
         questionDisplay();
     });
 
-}
-
+});
