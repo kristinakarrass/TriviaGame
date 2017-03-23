@@ -1,0 +1,26 @@
+body {
+	margin: 0;
+	padding: 0;
+
+}
+
+.container {
+	margin: 0 auto;
+	width: 700px;
+	background-color: lightblue;
+	height: 500px;
+}
+
+h1 {
+	padding: 20px 50px;
+	background-color: #4aaaa5;
+	color: #dddddd;
+}
+
+li:hover {
+	background-color: lightgrey;
+}
+
+button {
+	padding: 10px 30px;
+}
