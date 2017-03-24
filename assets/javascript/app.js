@@ -15,7 +15,12 @@ $(document).ready(function() {
         {question: "What is the southernmost town on Earth?", answers: ["Bluff, New Zealand", "Ushuaia, Argentina", "Puerto Williams, Chile", "Stanley, UK"], solution: "Puerto Williams, Chile", image: "puerto williams chile"}, 
         {question: "What is the biggest city on Earth?", answers: ["New York City, USA", "Tokyo, Japan", "Sao Paulo, Brazil", "Mexico City, Mexiko"], solution: "Tokyo, Japan", image: "tokyo japan"}, 
         {question: "What is the happiest nation on Earth?", answers: ["USA", "Switzerland", "Norway", "Denmark"], solution: "Norway", image: "norway fjord"}, 
-        {question: "Which is the most photographed place on Earth?", answers: ["Guggenheim Museum, New York", "Madrid, Spain", "Rome, Italy", "Eiffeltower, France"], solution: "Guggenheim Museum, New York", image: "guggenheim museum new york"}
+        {question: "Which is the most photographed place on Earth?", answers: ["Guggenheim Museum, New York", "Taj Mahal, India", "The Leaning Tower of Pisa, Italy", "Eiffeltower, France"], solution: "Guggenheim Museum, New York", image: "guggenheim museum new york"},
+        {question: "What is the smallest country in the world?", answers: ["Tuvalu", "San Marino", "Monaco", "Vatican City"], solution: "Vatican City", image: "vatican"},
+        {question: "Which country has the highest biodiversity?", answers: ["China", "Indonesia", "Brazil", "Mexico"], solution: "Brazil", image: "brazil rainforest"},
+        {question: "Which country has the most days of paid leave per year?", answers: ["Austria", "USA", "Spain", "Sri Lanka"], solution: "Austria", image: "austria"},
+        {question: "Which country produces the most movies in the world?", answers: ["USA", "India", "Nigeria", "France"], solution: "India", image: "bollywood"},
+        {question: "What is the lowest point on the Earth?", answers: ["Death Valley, USA", "Quattara Depression, Egypt", "Dead Sea, Israel/Jordan", "Lake Assal, Djibuti"], solution: "Dead Sea, Israel/Jordan", image: "dead sea israel"}
         ];
 
     //first screen when page loads with click event to start game
@@ -29,7 +34,7 @@ $(document).ready(function() {
     gameStart();
 
     //click function to start game by pulling first quesstion
-    $(".start").on("click", function() {
+    $(":button.start").on("click", function() {
         event.preventDefault();
         click.play();
         questionDisplay();
@@ -39,9 +44,8 @@ $(document).ready(function() {
 
     //screen displaying the questions
     function questionDisplay() {
-
         //display time left to answer
-        timeLeft = 30;
+        timeLeft = 20;
         $(".timer").html("You have " + timeLeft + " seconds left.");
         //run time frame given to answer question
         runTimer();
@@ -49,7 +53,7 @@ $(document).ready(function() {
         //ajax call for image
         var apiKey = 'ff324jg58kgra8xkdnfnqmcm';
         image = quiz[arrayNumber].image;
-        var queryURL = 'https://api.gettyimages.com/v3/search/images?phrase="' + image;
+        var queryURL = 'https://api.gettyimages.com/v3/search/images?phrase=' + image;
         $.ajax({
             url: queryURL,
             method: "GET",
@@ -116,33 +120,33 @@ $(document).ready(function() {
         correct++;
         $(".timer").html("");
         var messageRight = $("<div>");
-        var display = $("<p>").text("You're right! The correct answer is " + quiz[arrayNumber].solution + ".");
+        var display = $("<p class='text-center'>").text("You're right! The correct answer is " + quiz[arrayNumber].solution + ".");
         messageRight.append(display);
         messageRight.append(displayImage);
         $(".main-content").html(messageRight);
-        setTimeout(stopOrContinue, 2000);
+        setTimeout(stopOrContinue, 5000);
     }
     //screen for incorrent answer
     function wrongAnswer() {
         incorrect++;
         $(".timer").html("");
         var messageWrong = $("<div>");
-        var display = $("<p>").text("Oops! Maybe next time! The correct answer is " + quiz[arrayNumber].solution + ".");
+        var display = $("<p class= 'text-center'>").text("Oops! Maybe next time! The correct answer is " + quiz[arrayNumber].solution + ".");
         messageWrong.append(display);
         messageWrong.append(displayImage);
         $(".main-content").html(messageWrong);
-        setTimeout(stopOrContinue, 2000);
+        setTimeout(stopOrContinue, 5000);
     }
     //screen when question remains unanswered after time is up
     function unansweredQuestion() {
         unanswered++;
         $(".timer").html("");
         var messageUnanswered = $("<div>");
-        var display = $("<p>").text("Your time is up! The correct answer is " + quiz[arrayNumber].solution + ".");
+        var display = $("<p class='text-center'>").text("Your time is up! The correct answer is " + quiz[arrayNumber].solution + ".");
         messageUnanswered.append(display);
         messageUnanswered.append(displayImage);
         $(".main-content").html(messageUnanswered);
-        setTimeout(stopOrContinue, 2000);
+        setTimeout(stopOrContinue, 5000);
     }
 
     //game over screen with tally of wins, losses and unanswered questions with click to start over
@@ -185,7 +189,7 @@ $(document).ready(function() {
     //function to see if there are questions left or final screen needs to be displayed
     function stopOrContinue() {
         arrayNumber++;
-        if (arrayNumber < 5) {
+        if (arrayNumber < quiz.length) {
             questionDisplay();
         } else {
             endOfGameScreen();

@@ -1,14 +1,26 @@
 body {
 	margin: 0;
 	padding: 0;
-
+	font-size: 20px;
+	background-image: url("../images/background.jpg");
+	background-size: cover;
 }
 
 .container {
-	margin: 0 auto;
+	margin-top: 140px;
 	width: 700px;
 	background-color: lightblue;
 	height: 500px;
+}
+
+.timer {
+	padding: 20px;
+}
+
+.start {
+	position: relative;
+	top: 140px;
+	left: 125px;
 }
 
 h1 {
@@ -23,4 +35,11 @@ li:hover {
 
 button {
 	padding: 10px 30px;
+}
+
+img {
+	width: 50%;
+	position: relative;
+	top: 40px;
+	left: 160px;
 }
