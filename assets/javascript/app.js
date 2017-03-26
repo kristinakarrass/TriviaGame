@@ -98,22 +98,6 @@ $(document).ready(function() {
         }
     });
 
-    //function for ajax call
-    // function ajaxCall(){
-    // 	//ajax call for image
-    //     var apiKey = 'ff324jg58kgra8xkdnfnqmcm';
-    //     image = quiz[arrayNumber].image;
-    //     var queryURL = 'https://api.gettyimages.com/v3/search/images?phrase="' + image;
-    //     $.ajax({
-    //         url: queryURL,
-    //         method: "GET",
-    //         beforeSend: function(request){
-    //         	request.setRequestHeader("Api-Key", apiKey);
-    //     }}).done(function(response) {
-    //         console.log(response);
-    //         displayImage = $("<img src='" +response.images[0].display_sizes[0].uri + "'/>");
-    //     })
-    // }
 
     //screen for correct answer
     function correctAnswer() {
@@ -152,6 +136,7 @@ $(document).ready(function() {
     //game over screen with tally of wins, losses and unanswered questions with click to start over
     function endOfGameScreen() {
         var endResult = $("<div>");
+        endResult.addClass("endresult");
         var rightAnswers = $("<p>").text("Correct Answers: " + correct);
         endResult.append(rightAnswers);
         var wrongAnwers = $("<p>").text("Incorrect Answers: " + incorrect);
@@ -159,6 +144,16 @@ $(document).ready(function() {
         var unansweredQ = $("<p>").text("Unanswered Questions: " + unanswered);
         endResult.append(unansweredQ);
         var restartButton = $("<button>").text("Try Again");
+        if (correct === 10){
+        	var message = $("<p>").text("You are an expert!");
+        	endResult.append(message);
+        }else if (correct <= 9 && correct >=6) {
+        	var message = $("<p>").text("You have a solid knowledge of world facts!");
+  			endResult.append(message);
+        }else {
+        	var message = $("<p>").text("Most of your answers are wrong! Grab your passport and go travel!");
+        	endResult.append(message);
+        }
         //display main content html and restart button
         $(".main-content").html(endResult);
         $(".tryagain").html(restartButton);

@@ -19,10 +19,20 @@ body {
 
 .start {
 	position: relative;
-	top: 140px;
-	left: 125px;
+	top: 110px;
+	left: 120px;
 }
 
+.tryagain {
+	position: relative;
+	top: 110px;
+	left: 250px;
+}
+
+.endresult {
+	position: relative;
+	left: 40px;
+}
 h1 {
 	padding: 20px 50px;
 	background-color: #4aaaa5;
@@ -41,5 +51,5 @@ img {
 	width: 50%;
 	position: relative;
 	top: 40px;
-	left: 160px;
+	left: 165px;
 }
